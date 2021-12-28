@@ -1,5 +1,6 @@
 %{
 	#include <string.h>
+	#include <stdlib.h>
 	#include "y.tab.h"
 	#define stack_size 100
 	#define DEBUG 1
@@ -102,9 +103,6 @@ Multiline_comment \'\'\'.+\'\'\'
 			
 		}
 
-"import" {debug("IMPT"); return T_Import;}
-"print"  {debug("Print"); return T_Print;}
-"pass" {debug("Pass"); return T_Pass;}
 "if" {debug("If"); return T_If;}
 "in" {debug("In"); return T_In;}
 "while" {debug("While"); return T_While;}
@@ -114,8 +112,6 @@ Multiline_comment \'\'\'.+\'\'\'
 "not" {debug("Not"); return T_Not;}
 "elif" {debug("Elif"); return T_Elif;}
 "else" {debug("Else"); return T_Else;}
-"def" {debug("Def"); return T_Def;}
-"return" {debug("Return"); return T_Return;}
 ":" {debug("Cln"); return T_Cln;}
 ">" {debug("GT"); return T_GT;}
 "<" {debug("LT"); return T_LT;}
@@ -135,7 +131,6 @@ Multiline_comment \'\'\'.+\'\'\'
 "]" {debug("CB"); return T_CB;}
 "," {debug("Comma"); return T_Comma;}
 "=" {debug("EQL"); return T_EQL;}
-"list" {debug("List"); return T_List;}
 [0-9]+ {yylval.text = strdup(yytext); debug(yylval.text); return T_Number;}
 [_a-zA-Z][_a-zA-Z0-9]* {yylval.text = strdup(yytext); debug(yylval.text); return T_ID;}
 \"([^\"\n])*\" {yylval.text = strdup(yytext); debug(yylval.text); return T_String;}
